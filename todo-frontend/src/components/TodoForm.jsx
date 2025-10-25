@@ -13,7 +13,7 @@ function TodoForm({ onAdd }) {
       onAdd(res.data);
       setTitle("");
     } catch {
-      alert("خطأ في الإضافة");
+      alert("Error adding todo");
     }
   };
 
@@ -21,12 +21,12 @@ function TodoForm({ onAdd }) {
     <form onSubmit={submit} className="flex space-x-2">
       <input
         className="flex-1 border rounded-lg p-2"
-        placeholder="أضف مهمة..."
+        placeholder="Add a task..."
         value={title}
         onChange={e => setTitle(e.target.value)}
       />
       <button className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600">
-        إضافة
+        Add
       </button>
     </form>
   );

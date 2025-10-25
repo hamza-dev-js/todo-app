@@ -18,7 +18,7 @@ router.get("/", (req, res) => {
 // create todo
 router.post("/", (req, res) => {
   const { title } = req.body;
-  if (!title) return res.status(400).json({ message: "عنوان مطلوب" });
+  if (!title) return res.status(400).json({ message: "Title is required" });
 
   Todo.createTodo(req.user.id, title, (err, result) => {
     if (err) return res.status(500).json(err);
@@ -41,7 +41,7 @@ router.delete("/:id", (req, res) => {
   const { id } = req.params;
   Todo.deleteTodo(id, req.user.id, (err, result) => {
     if (err) return res.status(500).json(err);
-    res.json({ message: "تم الحذف" });
+    res.json({ message: "Deleted successfully" });
   });
 });
 

@@ -20,7 +20,7 @@ function App() {
 
   useEffect(() => {
     if (localStorage.getItem("token")) {
-      // ممكن لاحقاً نضيف API profile
+      // API profile can be added later
     }
   }, []);
 
@@ -35,12 +35,12 @@ function App() {
         ) : (
           <div className="space-y-4">
             <div className="flex justify-between items-center">
-              <h2 className="text-xl font-bold">مرحبا، {user.username}</h2>
+              <h2 className="text-xl font-bold">Hello, {user.username}</h2>
               <button
                 onClick={() => { localStorage.removeItem("token"); setUser(null); setTodos([]); }}
                 className="px-3 py-1 text-sm bg-red-500 text-white rounded hover:bg-red-600"
               >
-                خروج
+                Logout
               </button>
             </div>
 
@@ -49,7 +49,7 @@ function App() {
               onClick={fetchTodos}
               className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600"
             >
-              تحديث المهام
+              Refresh Todos
             </button>
             <TodoList todos={todos} setTodos={setTodos} />
           </div>

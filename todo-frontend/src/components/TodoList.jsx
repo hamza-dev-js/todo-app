@@ -6,46 +6,46 @@ function TodoList({ todos, setTodos }) {
   const [editingId, setEditingId] = useState(null);
   const [editTitle, setEditTitle] = useState("");
 
-  // حذف مهمة
+  // Delete a todo
   const remove = async (id) => {
     try {
       await api.delete(`/todos/${id}`);
       setTodos(todos.filter(t => t.id !== id));
     } catch {
-      alert("خطأ في الحذف");
+      alert("Error deleting todo");
     }
   };
 
-  // بدء التعديل
+  // Start editing
   const startEdit = (todo) => {
     setEditingId(todo.id);
     setEditTitle(todo.title);
   };
 
-  // إلغاء التعديل
+  // Cancel editing
   const cancelEdit = () => {
     setEditingId(null);
     setEditTitle("");
   };
 
-  // حفظ التعديل
+  // Save editing
   const saveEdit = async (todo) => {
     try {
       const res = await api.put(`/todos/${todo.id}`, { title: editTitle, completed: todo.completed });
       setTodos(todos.map(t => t.id === todo.id ? res.data : t));
       cancelEdit();
     } catch {
-      alert("خطأ في التعديل");
+      alert("Error updating todo");
     }
   };
 
-  // تبديل حالة Completed
+  // Toggle completed status
   const toggleComplete = async (todo) => {
     try {
       const res = await api.put(`/todos/${todo.id}`, { title: todo.title, completed: !todo.completed });
       setTodos(todos.map(t => t.id === todo.id ? res.data : t));
     } catch {
-      alert("خطأ في تحديث الحالة");
+      alert("Error updating status");
     }
   };
 

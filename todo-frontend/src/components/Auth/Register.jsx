@@ -9,30 +9,30 @@ function Register() {
     e.preventDefault();
     try {
       await api.post("/auth/register", { username, password });
-      alert("تم التسجيل، سجل الدخول الآن");
+      alert("Registration successful, please login now");
       setUsername(""); setPassword("");
     } catch (err) {
-      alert(err?.response?.data?.message || "خطأ");
+      alert(err?.response?.data?.message || "Error");
     }
   };
 
   return (
     <form onSubmit={submit} className="space-y-3">
-      <h3 className="text-lg font-semibold">تسجيل</h3>
+      <h3 className="text-lg font-semibold">Register</h3>
       <input
        className="w-full border rounded-lg p-2"
-       placeholder="اسم المستخدم"
+       placeholder="Username"
        value={username} 
        onChange={e => setUsername(e.target.value)} 
        />
       <input 
       className="w-full border rounded-lg p-2"
-      placeholder="كلمة السر" 
+      placeholder="Password"
       type="password" 
       value={password} 
       onChange={e => setPassword(e.target.value)} 
       />
-      <button className="w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600">تسجيل</button>
+      <button className="w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600">Register</button>
     </form>
   );
 }

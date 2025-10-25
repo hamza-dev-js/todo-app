@@ -13,28 +13,28 @@ function Login({ onLogin }) {
       localStorage.setItem("token", res.data.token);
       onLogin(res.data.user);
     } catch (err) {
-      alert(err?.response?.data?.message || "فشل الدخول");
+      alert(err?.response?.data?.message || "Login failed");
     }
   };
 
   return (
     <form onSubmit={submit} className="space-y-3">
-      <h3 className="text-lg font-semibold">تسجيل الدخول</h3>
+      <h3 className="text-lg font-semibold">Login</h3>
       <input
         className="w-full border rounded-lg p-2"
-        placeholder="اسم المستخدم"
+        placeholder="Username"
         value={username}
         onChange={e => setUsername(e.target.value)}
       />
       <input
         type="password"
         className="w-full border rounded-lg p-2"
-        placeholder="كلمة السر"
+        placeholder="Password"
         value={password}
         onChange={e => setPassword(e.target.value)}
       />
       <button className="w-full bg-green-500 text-white py-2 rounded-lg hover:bg-green-600">
-        دخول
+        Login
       </button>
     </form>
   );

@@ -11,17 +11,17 @@ const JWT_SECRET = process.env.JWT_SECRET || "secretkey";
 // register
 router.post("/register", (req, res) => {
   const { username, password, role } = req.body;
-  if (!username || !password) return res.status(400).json({ message: "الرجاء تعبئة الحقول" });
+  if (!username || !password) return res.status(400).json({ message: "Please fill in all fields" });
 
   User.findByUsername(username, (err, user) => {
     if (err) return res.status(500).json(err);
-    if (user) return res.status(400).json({ message: "اسم المستخدم موجود" });
+    if (user) return res.status(400).json({ message: "Username already exists" });
 
     bcrypt.hash(password, 10, (err, hashed) => {
       if (err) return res.status(500).json(err);
       User.createUser(username, hashed, role || "user", (err, result) => {
         if (err) return res.status(500).json(err);
-        res.status(201).json({ message: "تم التسجيل" });
+        res.status(201).json({ message: "Registration successful" });
       });
     });
   });
@@ -30,15 +30,15 @@ router.post("/register", (req, res) => {
 // login
 router.post("/login", (req, res) => {
   const { username, password } = req.body;
-  if (!username || !password) return res.status(400).json({ message: "الرجاء تعبئة الحقول" });
+  if (!username || !password) return res.status(400).json({ message: "Please fill in all fields" });
 
   User.findByUsername(username, (err, user) => {
     if (err) return res.status(500).json(err);
-    if (!user) return res.status(401).json({ message: "المستخدم غير موجود" });
+    if (!user) return res.status(401).json({ message: "User not found" });
 
     bcrypt.compare(password, user.password, (err, match) => {
       if (err) return res.status(500).json(err);
-      if (!match) return res.status(401).json({ message: "كلمة المرور غير صحيحة" });
+      if (!match) return res.status(401).json({ message: "Incorrect password" });
 
       const token = jwt.sign({ id: user.id, username: user.username, role: user.role }, JWT_SECRET, {
         expiresIn: "8h"
